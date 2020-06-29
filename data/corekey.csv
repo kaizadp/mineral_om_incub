@@ -1,0 +1,63 @@
+﻿Pre_post,SampleID,Sample_ID,RepID,RepID_2,Temperature,Moisture,Clay
+ Initial,1,x_I1,1, Initial_1, 4˚C, 50% WFPS,Illite-Amended
+ Initial,2,x_I2,1, Initial_1, 4˚C, 50% WFPS,Illite-Amended
+ Initial,3,x_I3,1, Initial_1, 4˚C, 50% WFPS,Illite-Amended
+ Initial,4,x_I4,1, Initial_1, 4˚C, 50% WFPS,Illite-Amended
+ Initial,5,x_I5,2, Initial_2, 4˚C,100% WFPS,Illite-Amended
+ Initial,6,x_I6,2, Initial_2, 4˚C,100% WFPS,Illite-Amended
+ Initial,7,x_I7,2, Initial_2, 4˚C,100% WFPS,Illite-Amended
+ Initial,8,x_I8,2, Initial_2, 4˚C,100% WFPS,Illite-Amended
+ Initial,9,x_I9,3, Initial_3, 4˚C, 50% WFPS, Non-Amended
+ Initial,10,x_I10,3, Initial_3, 4˚C, 50% WFPS, Non-Amended
+ Initial,11,x_I11,3, Initial_3, 4˚C, 50% WFPS, Non-Amended
+ Initial,12,x_I12,3, Initial_3, 4˚C, 50% WFPS, Non-Amended
+ Initial,13,x_I13,4, Initial_4, 4˚C,100% WFPS, Non-Amended
+ Initial,14,x_I14,4, Initial_4, 4˚C,100% WFPS, Non-Amended
+ Initial,15,x_I15,4, Initial_4, 4˚C,100% WFPS, Non-Amended
+ Initial,16,x_I16,4, Initial_4, 4˚C,100% WFPS, Non-Amended
+ Initial,17,x_I17,5, Initial_5,20˚C, 50% WFPS,Illite-Amended
+ Initial,18,x_I18,5, Initial_5,20˚C, 50% WFPS,Illite-Amended
+ Initial,19,x_I19,5, Initial_5,20˚C, 50% WFPS,Illite-Amended
+ Initial,20,x_I20,5, Initial_5,20˚C, 50% WFPS,Illite-Amended
+ Initial,21,x_I21,6, Initial_6,20˚C,100% WFPS,Illite-Amended
+ Initial,22,x_I22,6, Initial_6,20˚C,100% WFPS,Illite-Amended
+ Initial,23,x_I23,6, Initial_6,20˚C,100% WFPS,Illite-Amended
+ Initial,24,x_I24,6, Initial_6,20˚C,100% WFPS,Illite-Amended
+ Initial,25,x_I25,7, Initial_7,20˚C, 50% WFPS, Non-Amended
+ Initial,26,x_I26,7, Initial_7,20˚C, 50% WFPS, Non-Amended
+ Initial,27,x_I27,7, Initial_7,20˚C, 50% WFPS, Non-Amended
+ Initial,28,x_I28,7, Initial_7,20˚C, 50% WFPS, Non-Amended
+ Initial,29,x_I29,8, Initial_8,20˚C,100% WFPS, Non-Amended
+ Initial,30,x_I30,8, Initial_8,20˚C,100% WFPS, Non-Amended
+ Initial,31,x_I31,8, Initial_8,20˚C,100% WFPS, Non-Amended
+ Initial,32,x_I32,8, Initial_8,20˚C,100% WFPS, Non-Amended
+Final,1,x_F1,1,Final_1, 4˚C, 50% WFPS,Illite-Amended
+Final,2,x_F2,1,Final_1, 4˚C, 50% WFPS,Illite-Amended
+Final,3,x_F3,1,Final_1, 4˚C, 50% WFPS,Illite-Amended
+Final,4,x_F4,1,Final_1, 4˚C, 50% WFPS,Illite-Amended
+Final,5,x_F5,2,Final_2, 4˚C,100% WFPS,Illite-Amended
+Final,6,x_F6,2,Final_2, 4˚C,100% WFPS,Illite-Amended
+Final,7,x_F7,2,Final_2, 4˚C,100% WFPS,Illite-Amended
+Final,8,x_F8,2,Final_2, 4˚C,100% WFPS,Illite-Amended
+Final,9,x_F9,3,Final_3, 4˚C, 50% WFPS, Non-Amended
+Final,10,x_F10,3,Final_3, 4˚C, 50% WFPS, Non-Amended
+Final,11,x_F11,3,Final_3, 4˚C, 50% WFPS, Non-Amended
+Final,12,x_F12,3,Final_3, 4˚C, 50% WFPS, Non-Amended
+Final,13,x_F13,4,Final_4, 4˚C,100% WFPS, Non-Amended
+Final,14,x_F14,4,Final_4, 4˚C,100% WFPS, Non-Amended
+Final,15,x_F15,4,Final_4, 4˚C,100% WFPS, Non-Amended
+Final,16,x_F16,4,Final_4, 4˚C,100% WFPS, Non-Amended
+Final,17,x_F17,5,Final_5,20˚C, 50% WFPS,Illite-Amended
+Final,18,x_F18,5,Final_5,20˚C, 50% WFPS,Illite-Amended
+Final,19,x_F19,5,Final_5,20˚C, 50% WFPS,Illite-Amended
+Final,20,x_F20,5,Final_5,20˚C, 50% WFPS,Illite-Amended
+Final,21,x_F21,6,Final_6,20˚C,100% WFPS,Illite-Amended
+Final,22,x_F22,6,Final_6,20˚C,100% WFPS,Illite-Amended
+Final,23,x_F23,6,Final_6,20˚C,100% WFPS,Illite-Amended
+Final,24,x_F24,6,Final_6,20˚C,100% WFPS,Illite-Amended
+Final,25,x_F25,7,Final_7,20˚C, 50% WFPS, Non-Amended
+Final,26,x_F26,7,Final_7,20˚C, 50% WFPS, Non-Amended
+Final,27,x_F27,7,Final_7,20˚C, 50% WFPS, Non-Amended
+Final,28,x_F28,7,Final_7,20˚C, 50% WFPS, Non-Amended
+Final,29,x_F29,8,Final_8,20˚C,100% WFPS, Non-Amended
+Final,30,x_F30,8,Final_8,20˚C,100% WFPS, Non-Amended
