@@ -21,7 +21,7 @@ report2 =
 #
 # 2. create fticr meta file -----------------------------------------------
 
-fticr_meta = 
+fticr_meta_temp = 
   report2 %>% 
   dplyr::select(Mass:Class) %>% 
   # create columns for indices
@@ -40,13 +40,21 @@ fticr_meta =
                 formula_p = if_else(P>0,paste0("P",P),as.character(NA)),
                 formula = paste0(formula_c,formula_h, formula_o, formula_n, formula_s, formula_p),
                 formula = str_replace_all(formula,"NA","")) %>% 
-  dplyr::select(Mass, formula, El_comp, Class, HC, OC, AImod, NOSC, C:P)
+  dplyr::select(Mass, formula, El_comp, Class, HC, OC, AImod, NOSC, C:P) 
 
+fticr_meta_mass_formula  =
+  fticr_meta_temp %>% 
+  select(Mass, formula)
+
+fticr_meta = 
+  fticr_meta_temp %>% 
+  select(-Mass) %>% 
+  distinct()
 
 # subset of meta for HC/OC only, for Van Krevelen diagrams
 meta_hcoc = 
   fticr_meta %>% 
-  dplyr::select(Mass, formula, HC, OC)
+  dplyr::select(formula, HC, OC)
 
 #
 # 3. create data file -------------------------------------------------------------
@@ -57,22 +65,21 @@ data_long =
   pivot_longer(-Mass,
                names_to = "Sample_ID",
                values_to = "intensity") %>% 
-  mutate(presence = case_when(intensity > 0 ~ 1,
-                              intensity==0 ~ 0)) %>% 
+  mutate(presence = if_else(intensity>0,1,0)) %>% 
   dplyr::select(-intensity) %>% 
-  left_join(dplyr::select(meta, Mass, formula), by = "Mass") %>% 
-  dplyr::select(Mass, formula, Sample_ID, presence) %>% 
-  group_by(formula, Sample_ID) %>% 
-  dplyr::summarise(presence = mean(presence),
-                   n = n()) %>% 
-  ungroup %>% 
-  mutate(presence = if_else(presence>0,1,0)) %>% 
-  filter(presence==1)
+  left_join(fticr_meta_mass_formula, by = "Mass") %>% 
+  filter(presence==1) %>% 
+  select(-Mass) %>% 
+  select(Sample_ID, formula, presence) %>% 
+  distinct() 
   
 data_long2  =
   data_long %>% 
-  dplyr::select(-n) %>% 
-  left_join(dplyr::select(corekey, Pre_post, Sample_ID, Temperature, Moisture, Clay), by = "Sample_ID")
+  left_join(dplyr::select(corekey, Pre_post, Sample_ID, Temperature, Moisture, Clay), by = "Sample_ID") %>% 
+  na.omit() %>% 
+  # include only peaks seen in all replicates
+  group_by(Pre_post, Temperature, Moisture, Clay, formula) %>% 
+  dplyr::mutate(n = n())
 
 #
 # 4. OUTPUT -----------------------------------------------------------------
