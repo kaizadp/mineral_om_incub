@@ -1,36 +1,36 @@
 ﻿Pre_post,SampleID,Sample_ID,RepID,RepID_2,Temperature,Moisture,Clay
- Initial,1,x_I1,1, Initial_1, 4˚C, 50% WFPS,Illite-Amended
- Initial,2,x_I2,1, Initial_1, 4˚C, 50% WFPS,Illite-Amended
- Initial,3,x_I3,1, Initial_1, 4˚C, 50% WFPS,Illite-Amended
- Initial,4,x_I4,1, Initial_1, 4˚C, 50% WFPS,Illite-Amended
- Initial,5,x_I5,2, Initial_2, 4˚C,100% WFPS,Illite-Amended
- Initial,6,x_I6,2, Initial_2, 4˚C,100% WFPS,Illite-Amended
- Initial,7,x_I7,2, Initial_2, 4˚C,100% WFPS,Illite-Amended
- Initial,8,x_I8,2, Initial_2, 4˚C,100% WFPS,Illite-Amended
- Initial,9,x_I9,3, Initial_3, 4˚C, 50% WFPS, Non-Amended
- Initial,10,x_I10,3, Initial_3, 4˚C, 50% WFPS, Non-Amended
- Initial,11,x_I11,3, Initial_3, 4˚C, 50% WFPS, Non-Amended
- Initial,12,x_I12,3, Initial_3, 4˚C, 50% WFPS, Non-Amended
- Initial,13,x_I13,4, Initial_4, 4˚C,100% WFPS, Non-Amended
- Initial,14,x_I14,4, Initial_4, 4˚C,100% WFPS, Non-Amended
- Initial,15,x_I15,4, Initial_4, 4˚C,100% WFPS, Non-Amended
- Initial,16,x_I16,4, Initial_4, 4˚C,100% WFPS, Non-Amended
- Initial,17,x_I17,5, Initial_5,20˚C, 50% WFPS,Illite-Amended
- Initial,18,x_I18,5, Initial_5,20˚C, 50% WFPS,Illite-Amended
- Initial,19,x_I19,5, Initial_5,20˚C, 50% WFPS,Illite-Amended
- Initial,20,x_I20,5, Initial_5,20˚C, 50% WFPS,Illite-Amended
- Initial,21,x_I21,6, Initial_6,20˚C,100% WFPS,Illite-Amended
- Initial,22,x_I22,6, Initial_6,20˚C,100% WFPS,Illite-Amended
- Initial,23,x_I23,6, Initial_6,20˚C,100% WFPS,Illite-Amended
- Initial,24,x_I24,6, Initial_6,20˚C,100% WFPS,Illite-Amended
- Initial,25,x_I25,7, Initial_7,20˚C, 50% WFPS, Non-Amended
- Initial,26,x_I26,7, Initial_7,20˚C, 50% WFPS, Non-Amended
- Initial,27,x_I27,7, Initial_7,20˚C, 50% WFPS, Non-Amended
- Initial,28,x_I28,7, Initial_7,20˚C, 50% WFPS, Non-Amended
- Initial,29,x_I29,8, Initial_8,20˚C,100% WFPS, Non-Amended
- Initial,30,x_I30,8, Initial_8,20˚C,100% WFPS, Non-Amended
- Initial,31,x_I31,8, Initial_8,20˚C,100% WFPS, Non-Amended
- Initial,32,x_I32,8, Initial_8,20˚C,100% WFPS, Non-Amended
+Initial,1,x_I1,1, Initial_1, 4˚C, 50% WFPS,Illite-Amended
+Initial,2,x_I2,1, Initial_1, 4˚C, 50% WFPS,Illite-Amended
+Initial,3,x_I3,1, Initial_1, 4˚C, 50% WFPS,Illite-Amended
+Initial,4,x_I4,1, Initial_1, 4˚C, 50% WFPS,Illite-Amended
+Initial,5,x_I5,2, Initial_2, 4˚C,100% WFPS,Illite-Amended
+Initial,6,x_I6,2, Initial_2, 4˚C,100% WFPS,Illite-Amended
+Initial,7,x_I7,2, Initial_2, 4˚C,100% WFPS,Illite-Amended
+Initial,8,x_I8,2, Initial_2, 4˚C,100% WFPS,Illite-Amended
+Initial,9,x_I9,3, Initial_3, 4˚C, 50% WFPS, Non-Amended
+Initial,10,x_I10,3, Initial_3, 4˚C, 50% WFPS, Non-Amended
+Initial,11,x_I11,3, Initial_3, 4˚C, 50% WFPS, Non-Amended
+Initial,12,x_I12,3, Initial_3, 4˚C, 50% WFPS, Non-Amended
+Initial,13,x_I13,4, Initial_4, 4˚C,100% WFPS, Non-Amended
+Initial,14,x_I14,4, Initial_4, 4˚C,100% WFPS, Non-Amended
+Initial,15,x_I15,4, Initial_4, 4˚C,100% WFPS, Non-Amended
+Initial,16,x_I16,4, Initial_4, 4˚C,100% WFPS, Non-Amended
+Initial,17,x_I17,5, Initial_5,20˚C, 50% WFPS,Illite-Amended
+Initial,18,x_I18,5, Initial_5,20˚C, 50% WFPS,Illite-Amended
+Initial,19,x_I19,5, Initial_5,20˚C, 50% WFPS,Illite-Amended
+Initial,20,x_I20,5, Initial_5,20˚C, 50% WFPS,Illite-Amended
+Initial,21,x_I21,6, Initial_6,20˚C,100% WFPS,Illite-Amended
+Initial,22,x_I22,6, Initial_6,20˚C,100% WFPS,Illite-Amended
+Initial,23,x_I23,6, Initial_6,20˚C,100% WFPS,Illite-Amended
+Initial,24,x_I24,6, Initial_6,20˚C,100% WFPS,Illite-Amended
+Initial,25,x_I25,7, Initial_7,20˚C, 50% WFPS, Non-Amended
+Initial,26,x_I26,7, Initial_7,20˚C, 50% WFPS, Non-Amended
+Initial,27,x_I27,7, Initial_7,20˚C, 50% WFPS, Non-Amended
+Initial,28,x_I28,7, Initial_7,20˚C, 50% WFPS, Non-Amended
+Initial,29,x_I29,8, Initial_8,20˚C,100% WFPS, Non-Amended
+Initial,30,x_I30,8, Initial_8,20˚C,100% WFPS, Non-Amended
+Initial,31,x_I31,8, Initial_8,20˚C,100% WFPS, Non-Amended
+Initial,32,x_I32,8, Initial_8,20˚C,100% WFPS, Non-Amended
 Final,1,x_F1,1,Final_1, 4˚C, 50% WFPS,Illite-Amended
 Final,2,x_F2,1,Final_1, 4˚C, 50% WFPS,Illite-Amended
 Final,3,x_F3,1,Final_1, 4˚C, 50% WFPS,Illite-Amended
