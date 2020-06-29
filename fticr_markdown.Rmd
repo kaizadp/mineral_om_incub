@@ -1,0 +1,53 @@
+---
+title: "FTICR"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE,message=FALSE,warning=FALSE,
+                      collapse = TRUE,
+                      comment = "#>", 
+                      fig.path = "images/fticr_markdown/"
+                      )
+
+source("code/0-packages.R")
+
+```
+
+```{r}
+# load files
+
+data_long = read.csv("processed/fticr_data_long.csv", stringsAsFactors = F)
+meta_hcoc = read.csv("processed/fticr_meta_hcoc.csv", stringsAsFactors = F)
+
+```
+
+### Van Krevelen Plots
+
+```{r vankrev, fig.height=7, fig.width=7}
+data_hcoc = data_long %>% 
+  left_join(meta_hcoc, by = "formula") 
+
+gg_vankrev(data_hcoc %>% filter(Pre_post=="Initial"), aes(x = OC, y = HC, color = Clay))+
+  ggtitle("initial")+
+  facet_grid(Temperature~Moisture)+
+  theme_kp()+
+  NULL
+
+gg_vankrev(data_hcoc %>% filter(Pre_post=="Final"), aes(x = OC, y = HC, color = Clay))+
+  ggtitle("final")+
+  stat_ellipse()+
+  facet_grid(Temperature~Moisture)+
+  theme_kp()+
+  NULL
+
+```
+
+----
+#### Session Info
+date run: `r Sys.Date()`
+
+```{r}
+sessionInfo()
+```
+
