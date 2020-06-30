@@ -1,0 +1,109 @@
+---
+title: "Preliminary Results"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE,message=FALSE,warning=FALSE,
+                      collapse = TRUE,
+                      comment = "#>", 
+                      fig.path = "images/fticr_markdown/"
+                      )
+
+source("code/0-packages.R")
+
+```
+
+---
+ 
+## FTICR-MS 
+```{r}
+# load files
+
+data_long = read.csv("processed/fticr_data_long.csv", stringsAsFactors = F)
+meta_hcoc = read.csv("processed/fticr_meta_hcoc.csv", stringsAsFactors = F)
+fticr_meta = read.csv("processed/fticr_meta.csv", stringsAsFactors = F)
+```
+
+### Van Krevelen Plots
+#### domains
+
+```{r vankrev_domains, fig.height=5, fig.width=5}
+meta_hcoc %>% 
+  left_join(dplyr::select(fticr_meta, formula, Class), by = "formula") %>% 
+  gg_vankrev( aes(x = OC, y = HC, color = Class))+
+  theme_kp()+
+  theme(legend.text = element_text(size=8))+
+  NULL
+```
+
+
+#### treatment effect
+includes all peaks detected (not filtered based on number of replicates)   
+
+**initial (pre-conditioned to temp and clay)**
+
+```{r vankrev_initial, fig.height=7, fig.width=7}
+data_hcoc = data_long %>% 
+  left_join(meta_hcoc, by = "formula") 
+
+gg_vankrev(data_hcoc %>% filter(Pre_post=="Initial"), aes(x = OC, y = HC, color = Clay))+
+  ggtitle("initial")+
+  facet_grid(Temperature~Moisture)+
+  theme_kp()+
+  NULL
+```
+
+**final**
+
+```{r vankrev_final, fig.height=7, fig.width=7}
+gg_vankrev(data_hcoc %>% filter(Pre_post=="Final"), aes(x = OC, y = HC, color = Clay))+
+  ggtitle("final")+
+  stat_ellipse()+
+  facet_grid(Temperature~Moisture)+
+  theme_kp()+
+  NULL
+
+```
+
+
+---
+
+### FTICR QC
+
+#### How many times was each peak seen?
+If n = 4, the peak was seen in all 4 replicates.  
+Usually include only peaks seen all/majority of replicates.  
+Note: the 20C+100%wfps+non-amended treatment had only 2 replicates because of contamination.  
+
+
+```{r fticr_qc, fig.width=12, fig.height=7}
+data_hcoc = data_long %>% 
+  left_join(meta_hcoc, by = "formula") 
+
+gg_vankrev(data_hcoc %>% filter(Pre_post=="Initial"), aes(x = OC, y = HC, color = as.factor(n)))+
+  ggtitle("initial")+
+  facet_grid(Temperature+Moisture~Clay+n)+
+  theme(legend.position = "none")+
+  #theme_kp()+
+  NULL
+
+gg_vankrev(data_hcoc %>% filter(Pre_post=="Final"), aes(x = OC, y = HC, color = as.factor(n)))+
+  ggtitle("final")+
+  facet_grid(Temperature+Moisture~Clay+n)+
+  theme(legend.position = "none")+
+  #theme_kp()+
+  NULL
+
+```
+
+
+
+----
+#### Session Info
+date run: `r Sys.Date()`
+
+```{r}
+sessionInfo()
+```
+

@@ -1,9 +1,40 @@
-FTICR
+Preliminary Results
 ================
+
+-----
+
+## FTICR-MS
 
 ### Van Krevelen Plots
 
-![](images/fticr_markdown/vankrev-1.png)<!-- -->![](images/fticr_markdown/vankrev-2.png)<!-- -->
+#### domains
+
+![](images/fticr_markdown/vankrev_domains-1.png)<!-- -->
+
+#### treatment effect
+
+includes all peaks detected (not filtered based on number of replicates)
+
+**initial (pre-conditioned to temp and clay)**
+
+![](images/fticr_markdown/vankrev_initial-1.png)<!-- -->
+
+**final**
+
+![](images/fticr_markdown/vankrev_final-1.png)<!-- -->
+
+-----
+
+### FTICR QC
+
+#### How many times was each peak seen?
+
+If n = 4, the peak was seen in all 4 replicates.  
+Usually include only peaks seen all/majority of replicates.  
+Note: the 20C+100%wfps+non-amended treatment had only 2 replicates
+because of contamination.
+
+![](images/fticr_markdown/fticr_qc-1.png)<!-- -->![](images/fticr_markdown/fticr_qc-2.png)<!-- -->
 
 -----
 
