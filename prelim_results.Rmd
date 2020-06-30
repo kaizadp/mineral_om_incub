@@ -32,6 +32,7 @@ fticr_meta = read.csv("processed/fticr_meta.csv", stringsAsFactors = F)
 meta_hcoc %>% 
   left_join(dplyr::select(fticr_meta, formula, Class), by = "formula") %>% 
   gg_vankrev( aes(x = OC, y = HC, color = Class))+
+  scale_color_viridis_d(option = "inferno")+
   theme_kp()+
   theme(legend.text = element_text(size=8))+
   NULL
