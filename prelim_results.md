@@ -13,7 +13,7 @@ Preliminary Results
 
 #### treatment effect
 
-includes all peaks detected (not filtered based on number of replicates)
+**all peaks detected (not filtered based on number of replicates)**
 
 **initial (pre-conditioned to temp and clay)**
 
@@ -22,6 +22,16 @@ includes all peaks detected (not filtered based on number of replicates)
 **final**
 
 ![](images/fticr_markdown/vankrev_final-1.png)<!-- -->
+
+**peaks detected in 2/4 replicates**
+
+**initial (pre-conditioned to temp and clay)**
+
+![](images/fticr_markdown/vankrev_initial_2of4-1.png)<!-- -->
+
+**final**
+
+![](images/fticr_markdown/vankrev_final_2of4-1.png)<!-- -->
 
 -----
 
@@ -40,7 +50,7 @@ because of contamination.
 
 #### Session Info
 
-date run: 2020-06-29
+date run: 2020-07-01
 
     #> R version 4.0.1 (2020-06-06)
     #> Platform: x86_64-apple-darwin17.0 (64-bit)

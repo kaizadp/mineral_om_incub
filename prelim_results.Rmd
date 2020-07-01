@@ -40,7 +40,7 @@ meta_hcoc %>%
 
 
 #### treatment effect
-includes all peaks detected (not filtered based on number of replicates)   
+**all peaks detected (not filtered based on number of replicates)**   
 
 **initial (pre-conditioned to temp and clay)**
 
@@ -67,6 +67,35 @@ gg_vankrev(data_hcoc %>% filter(Pre_post=="Final"), aes(x = OC, y = HC, color = 
 
 ```
 
+**peaks detected in 2/4 replicates**   
+
+**initial (pre-conditioned to temp and clay)**
+
+```{r vankrev_initial_2of4, fig.height=7, fig.width=7}
+data_hcoc = data_long %>% 
+  left_join(meta_hcoc, by = "formula") 
+
+gg_vankrev(data_hcoc %>% filter(Pre_post=="Initial") %>% filter(n>1), aes(x = OC, y = HC, color = Clay))+
+  ggtitle("initial")+
+  stat_ellipse()+
+  facet_grid(Temperature~Moisture)+
+  theme_kp()+
+  NULL
+```
+
+**final**
+
+```{r vankrev_final_2of4, fig.height=7, fig.width=7}
+gg_vankrev(data_hcoc %>% filter(Pre_post=="Final") %>% filter(n>1), aes(x = OC, y = HC, color = Clay))+
+  geom_point(alpha = 0.1, size=0.1)+
+  ggtitle("final")+
+  stat_ellipse()+
+  facet_grid(Temperature~Moisture)+
+  theme_kp()+
+  NULL
+
+a = data_hcoc %>% filter(Pre_post=="Final") %>% filter(n>1)
+```
 
 ---
 
