@@ -23,6 +23,8 @@ Preliminary Results
 
 ![](images/fticr_markdown/vankrev_final-1.png)<!-- -->
 
+-----
+
 **peaks detected in 2/4 replicates**
 
 **initial (pre-conditioned to temp and clay)**

@@ -67,6 +67,8 @@ gg_vankrev(data_hcoc %>% filter(Pre_post=="Final"), aes(x = OC, y = HC, color = 
 
 ```
 
+----
+
 **peaks detected in 2/4 replicates**   
 
 **initial (pre-conditioned to temp and clay)**
