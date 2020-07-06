@@ -16,7 +16,7 @@ report2 =
   filter(Mass > 200 & Mass < 900) %>% 
   # remove isotopes
   filter(C13==0) %>% 
-  filter(C>0) %>% 
+  #filter(C>0) %>% 
   dplyr::select(-C13)
 
 #
@@ -45,27 +45,29 @@ fticr_meta_temp =
                 formula_s = if_else(S>0,paste0("S",S),as.character(NA)),
                 formula_p = if_else(P>0,paste0("P",P),as.character(NA)),
                 formula = paste0(formula_c,formula_h, formula_o, formula_n, formula_s, formula_p),
-                formula = str_replace_all(formula,"NA","")) %>% 
+                formula = str_replace_all(formula,"NA","")) %>%
+  mutate(DBE_AI = if_else(C==0, as.numeric(NA), DBE_AI),
+         DBE_C = if_else(C==0, as.numeric(NA), DBE_C)) %>% 
   dplyr::select(Mass, formula, El_comp, Class, HC, OC, AImod, NOSC, Gibbs, DBE_AI, DBE_C, KM, KMD, C:P) 
 
 fticr_meta_mass_formula  =
   fticr_meta_temp %>% 
   select(Mass, formula)
 
-fticr_meta_mass_formula_kmd  =
-  fticr_meta_temp %>% 
-  select(Mass, formula, KM, KMD) %>% 
-  group_by(formula) %>% 
-  summarise(Mass = round(mean(Mass),4),
-            KM = round(mean(KM),4),
-            KMD = round(mean(KMD),4))
-
-fticr_meta = 
-  fticr_meta_temp %>% 
-  select(-Mass, -KM, -KMD) %>% 
-  distinct() %>% 
-  left_join(fticr_meta_mass_formula_kmd, by = "formula") %>% 
-  select(Mass, formula:DBE_C, KM, KMD, C:P)
+  ## fticr_meta_mass_formula_kmd  =
+  ##   fticr_meta_temp %>% 
+  ##   select(Mass, formula, KM, KMD) %>% 
+  ##   group_by(formula) %>% 
+  ##   summarise(Mass = round(mean(Mass),4),
+  ##             KM = round(mean(KM),4),
+  ##             KMD = round(mean(KMD),4))
+  ## 
+  fticr_meta = 
+    fticr_meta_temp %>% 
+    select(-Mass, -KM, -KMD) %>% 
+    distinct() %>% 
+    left_join(fticr_meta_mass_formula_kmd, by = "formula") %>% 
+    select(Mass, formula:DBE_C, KM, KMD, C:P)
 
 # subset of meta for HC/OC only, for Van Krevelen diagrams
 meta_hcoc = 
@@ -85,9 +87,9 @@ data_long =
   dplyr::select(-intensity) %>% 
   left_join(fticr_meta_mass_formula, by = "Mass") %>% 
   filter(presence==1) %>% 
-  select(-Mass) %>% 
-  select(Sample_ID, formula, presence) %>% 
-  distinct() 
+  #select(-Mass) %>% 
+  select(Sample_ID, formula, presence) 
+  #distinct() 
   
 data_long2  =
   data_long %>% 
