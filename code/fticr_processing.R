@@ -88,7 +88,7 @@ data_long =
   left_join(fticr_meta_mass_formula, by = "Mass") %>% 
   filter(presence==1) %>% 
   #select(-Mass) %>% 
-  select(Sample_ID, formula, presence) 
+  select(Sample_ID, Mass, formula, presence) 
   #distinct() 
   
 data_long2  =
@@ -104,7 +104,7 @@ data_long2  =
 #
 # 4. OUTPUT -----------------------------------------------------------------
 
-write.csv(fticr_meta, "data/processed/fticr_meta.csv", row.names = F)
+write.csv(fticr_meta_temp, "data/processed/fticr_meta.csv", row.names = F)
 write.csv(data_long2, "data/processed/fticr_data_long.csv", row.names = F)
 write.csv(meta_hcoc, "data/processed/fticr_meta_hcoc.csv", row.names = F)
 
