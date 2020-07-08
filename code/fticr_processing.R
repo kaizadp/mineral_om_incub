@@ -64,9 +64,9 @@ fticr_meta_mass_formula  =
   ## 
   fticr_meta = 
     fticr_meta_temp %>% 
-    select(-Mass, -KM, -KMD) %>% 
+    #select(-Mass, -KM, -KMD) %>% 
     distinct() %>% 
-    left_join(fticr_meta_mass_formula_kmd, by = "formula") %>% 
+    #left_join(fticr_meta_mass_formula_kmd, by = "formula") %>% 
     select(Mass, formula:DBE_C, KM, KMD, C:P)
 
 # subset of meta for HC/OC only, for Van Krevelen diagrams
