@@ -43,7 +43,7 @@ Usually include only peaks seen all/majority of replicates.
 
 #### Session Info
 
-date run: 2020-07-08
+date run 2020-07-08
 
     #> R version 4.0.1 (2020-06-06)
     #> Platform: x86_64-apple-darwin17.0 (64-bit)
