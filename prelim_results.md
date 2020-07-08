@@ -11,19 +11,12 @@ Preliminary Results
 
 ![](images/fticr_markdown/vankrev_domains-1.png)<!-- -->
 
+version 2. taken from [Ohno et al. 2018,
+Geoderma](https://doi.org/10.1016/j.geoderma.2018.04.006)  
+using H/C, O/C, and AImod  
+![](images/fticr_markdown/vankrev_domains2-1.png)<!-- -->
+
 #### treatment effect
-
-**all peaks detected (not filtered based on number of replicates)**
-
-**initial (pre-conditioned to temp and clay)**
-
-![](images/fticr_markdown/vankrev_initial-1.png)<!-- -->
-
-**final**
-
-![](images/fticr_markdown/vankrev_final-1.png)<!-- -->
-
------
 
 **peaks detected in 2/4 replicates**
 
@@ -42,9 +35,7 @@ Preliminary Results
 #### How many times was each peak seen?
 
 If n = 4, the peak was seen in all 4 replicates.  
-Usually include only peaks seen all/majority of replicates.  
-Note: the 20C+100%wfps+non-amended treatment had only 2 replicates
-because of contamination.
+Usually include only peaks seen all/majority of replicates.
 
 ![](images/fticr_markdown/fticr_qc-1.png)<!-- -->![](images/fticr_markdown/fticr_qc-2.png)<!-- -->
 
@@ -52,7 +43,7 @@ because of contamination.
 
 #### Session Info
 
-date run: 2020-07-01
+date run: 2020-07-08
 
     #> R version 4.0.1 (2020-06-06)
     #> Platform: x86_64-apple-darwin17.0 (64-bit)
