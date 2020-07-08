@@ -72,7 +72,7 @@ fticr_meta_mass_formula  =
 # subset of meta for HC/OC only, for Van Krevelen diagrams
 meta_hcoc = 
   fticr_meta %>% 
-  dplyr::select(formula, HC, OC)
+  dplyr::select(formula, HC, OC) %>% na.omit()
 
 #
 # 3. create data file -------------------------------------------------------------
@@ -94,12 +94,11 @@ data_long =
 data_long2  =
   data_long %>% 
   left_join(dplyr::select(corekey, Pre_post, Sample_ID, Temperature, Moisture, Clay), by = "Sample_ID") %>% 
-  na.omit() %>% 
+  #na.omit() %>% 
   # include only peaks seen in all replicates
-  group_by(Pre_post, Temperature, Moisture, Clay, formula) %>% 
+  group_by(Pre_post, Temperature, Moisture, Clay, Mass) %>% 
   dplyr::mutate(n = n()) %>% 
-  filter(n>1) %>% 
-  select(-n)
+  filter(n>1)
 
 #
 # 4. OUTPUT -----------------------------------------------------------------
