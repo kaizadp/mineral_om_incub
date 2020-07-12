@@ -1,0 +1,65 @@
+SampleID,Time,Temp_C,Clay,Moisture,Identifier
+1, Initial,4,Illite-Amended, 50% WFPS,1-I1_4__clay_50WFPS
+2, Initial,4,Illite-Amended, 50% WFPS,2-I2_4__clay_50WFPS
+3, Initial,4,Illite-Amended, 50% WFPS,3-I3_4__clay_50WFPS
+4, Initial,4,Illite-Amended, 50% WFPS,4-I4_4__clay_50WFPS
+5, Initial,4,Illite-Amended,100% WFPS,5-I1_4__clay_100WFPS
+6, Initial,4,Illite-Amended,100% WFPS,6-I2_4__clay_100WFPS
+7, Initial,4,Illite-Amended,100% WFPS,7-I3_4__clay_100WFPS
+8, Initial,4,Illite-Amended,100% WFPS,8-I4_4__clay_100WFPS
+9, Initial,4, Non-Amended, 50% WFPS,9-I1_4___50WFPS
+10, Initial,4, Non-Amended, 50% WFPS,10-I2_4___50WFPS
+11, Initial,4, Non-Amended, 50% WFPS,11-I3_4___50WFPS
+12, Initial,4, Non-Amended, 50% WFPS,12-I4_4___50WFPS
+13, Initial,4, Non-Amended,100% WFPS,13-I1_4___100WFPS
+14, Initial,4, Non-Amended,100% WFPS,14-I2_4___100WFPS
+15, Initial,4, Non-Amended,100% WFPS,15-I3_4___100WFPS
+16, Initial,4, Non-Amended,100% WFPS,16-I4_4___100WFPS
+17, Initial,20,Illite-Amended, 50% WFPS,17-I1_20__clay_50WFPS
+18, Initial,20,Illite-Amended, 50% WFPS,18-I2_20__clay_50WFPS
+19, Initial,20,Illite-Amended, 50% WFPS,19-I3_20__clay_50WFPS
+20, Initial,20,Illite-Amended, 50% WFPS,20-I4_20__clay_50WFPS
+21, Initial,20,Illite-Amended,100% WFPS,21-I1_20__clay_100WFPS
+22, Initial,20,Illite-Amended,100% WFPS,22-I2_20__clay_100WFPS
+23, Initial,20,Illite-Amended,100% WFPS,23-I3_20__clay_100WFPS
+24, Initial,20,Illite-Amended,100% WFPS,24-I4_20__clay_100WFPS
+25, Initial,20, Non-Amended, 50% WFPS,25-I1_20___50WFPS
+26, Initial,20, Non-Amended, 50% WFPS,26-I2_20___50WFPS
+27, Initial,20, Non-Amended, 50% WFPS,27-I3_20___50WFPS
+28, Initial,20, Non-Amended, 50% WFPS,28-I4_20___50WFPS
+29, Initial,20, Non-Amended,100% WFPS,29-I1_20___100WFPS
+30, Initial,20, Non-Amended,100% WFPS,30-I2_20___100WFPS
+31, Initial,20, Non-Amended,100% WFPS,31-I3_20___100WFPS
+32, Initial,20, Non-Amended,100% WFPS,32-I4_20___100WFPS
+1,Final,4,Illite-Amended, 50% WFPS,65-F1_4__clay_50WFPS
+2,Final,4,Illite-Amended, 50% WFPS,66-F2_4__clay_50WFPS
+3,Final,4,Illite-Amended, 50% WFPS,67-F3_4__clay_50WFPS
+4,Final,4,Illite-Amended, 50% WFPS,68-F4_4__clay_50WFPS
+5,Final,4,Illite-Amended,100% WFPS,69-F1_4__clay_100WFPS
+6,Final,4,Illite-Amended,100% WFPS,70-F2_4__clay_100WFPS
+7,Final,4,Illite-Amended,100% WFPS,71-F3_4__clay_100WFPS
+8,Final,4,Illite-Amended,100% WFPS,72-F4_4__clay_100WFPS
+9,Final,4, Non-Amended, 50% WFPS,73-F1_4___50WFPS
+10,Final,4, Non-Amended, 50% WFPS,74-F2_4___50WFPS
+11,Final,4, Non-Amended, 50% WFPS,75-F3_4___50WFPS
+12,Final,4, Non-Amended, 50% WFPS,76-F4_4___50WFPS
+13,Final,4, Non-Amended,100% WFPS,77-F1_4___100WFPS
+14,Final,4, Non-Amended,100% WFPS,78-F2_4___100WFPS
+15,Final,4, Non-Amended,100% WFPS,79-F3_4___100WFPS
+16,Final,4, Non-Amended,100% WFPS,80-F4_4___100WFPS
+17,Final,20,Illite-Amended, 50% WFPS,81-F1_20__clay_50WFPS
+18,Final,20,Illite-Amended, 50% WFPS,82-F2_20__clay_50WFPS
+19,Final,20,Illite-Amended, 50% WFPS,83-F3_20__clay_50WFPS
+20,Final,20,Illite-Amended, 50% WFPS,84-F4_20__clay_50WFPS
+21,Final,20,Illite-Amended,100% WFPS,85-F1_20__clay_100WFPS
+22,Final,20,Illite-Amended,100% WFPS,86-F2_20__clay_100WFPS
+23,Final,20,Illite-Amended,100% WFPS,87-F3_20__clay_100WFPS
+24,Final,20,Illite-Amended,100% WFPS,88-F4_20__clay_100WFPS
+25,Final,20, Non-Amended, 50% WFPS,89-F1_20___50WFPS
+26,Final,20, Non-Amended, 50% WFPS,90-F2_20___50WFPS
+27,Final,20, Non-Amended, 50% WFPS,91-F3_20___50WFPS
+28,Final,20, Non-Amended, 50% WFPS,92-F4_20___50WFPS
+29,Final,20, Non-Amended,100% WFPS,93-F1_20___100WFPS
+30,Final,20, Non-Amended,100% WFPS,94-F2_20___100WFPS
+31,Final,20, Non-Amended,100% WFPS,95-F3_20___100WFPS
+32,Final,20, Non-Amended,100% WFPS,96-F4_20___100WFPS
