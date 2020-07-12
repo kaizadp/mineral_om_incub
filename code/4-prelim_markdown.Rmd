@@ -71,6 +71,32 @@ doc %>%
   NULL
 ```
 
+## stats
+
+```{r doc_stats, echo=TRUE}
+aov_doc_initial = aov(doc_ppm ~ Temp_C * Moisture * Clay, 
+                      data = doc %>% filter(Time=="Initial"))
+summary(aov_doc_initial)
+
+aov_doc_final = aov(doc_ppm ~ Temp_C * Moisture * Clay, 
+                    data = doc %>% filter(Time=="Final"))
+summary(aov_doc_final)
+```
+
+## summary table
+
+```{r doc_table}
+doc %>% 
+  mutate(Time = factor(Time, levels = c("Initial", "Final"))) %>% 
+  select(doc_ppm, Time, Temp_C, Clay, Moisture) %>% 
+  group_by(Time, Temp_C, Clay, Moisture) %>% 
+  summarise(doc = mean(doc_ppm),
+            se_doc = sd(doc_ppm)/sqrt(n()),
+            mean = paste(round(doc,2), "\u00b1", round(se_doc,2))) %>% 
+  select(-doc, -se_doc) %>% 
+  spread(Clay, mean) %>% 
+  knitr::kable()
+```
 
 ---
 
