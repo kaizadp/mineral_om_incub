@@ -18,13 +18,13 @@ theme_kp <- function() {  # this for all the elements common across plots
     theme(legend.position = "top",
           legend.key=element_blank(),
           legend.title = element_blank(),
-          legend.text = element_text(size = 12),
+          legend.text = element_text(size = 10),
           legend.key.size = unit(1.5, 'lines'),
           legend.background = element_rect(colour = NA),
-          panel.border = element_rect(color="black",size=1.5, fill = NA),
+          panel.border = element_rect(color="black",size=1, fill = NA),
           
           plot.title = element_text(hjust = 0.05, size = 14),
-          axis.text = element_text(size = 14, color = "black"),
+          axis.text = element_text(size = 12, color = "black"),
           axis.title = element_text(size = 14, face = "bold", color = "black"),
           
           # formatting for facets
