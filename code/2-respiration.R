@@ -20,6 +20,25 @@ flux_clean =
   mutate(datetime = mdy_hm(paste(date, hour)),
          date = mdy(date))
 
+# calculate flux ----------------------------------------------------------
+headspace = 12.713075
+headspace2 = headspace/1000
+R = 82.05 #cm3-atm/g mole- K
+soil_wt = 42 #g
+
+flux = 
+  flux_clean %>% 
+  mutate(
+    #PV=nRT
+    mmol_air = ((1*headspace)/(R*(Temperature+273)))*1000,
+    ug_CO2_C = mmol_air*CO2_1_ppm*12.011/1000,
+    mg_CO2_C = ug_CO2_C/1000) 
+
+
+
+#
+
+
 
 
 # output ------------------------------------------------------------------
