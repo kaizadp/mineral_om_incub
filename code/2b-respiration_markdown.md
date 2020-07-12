@@ -5,7 +5,7 @@ respiration
 
 **CO2 concentrations over time**
 
-![](images/fticr_markdown/conc-1.png)<!-- -->
+![](markdown/respiration/conc-1.png)<!-- -->
 
 -----
 
