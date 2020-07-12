@@ -1,0 +1,86 @@
+---
+title: "preliminary results"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo=FALSE,message=FALSE,warning=FALSE,
+                      collapse = TRUE,
+                      comment = "#>", 
+                      fig.path = "markdown/prelim/"
+                      )
+```
+
+```{r script setup}
+library(here)
+source(here("code/0-packages.R"))
+theme_set(theme_bw())
+```
+
+
+----
+
+# RESPIRATION
+
+```{r flux_files}
+flux = read.csv(here("data/processed/flux.csv")) %>% 
+  mutate(datetime = ymd_hms(datetime))
+```
+
+## CO2 concentrations
+
+**by core**
+
+```{r resp_conc_graph, fig.width=10}
+flux %>% 
+  ggplot(aes(x = datetime, y = CO2_1_ppm, color = as.character(core)))+
+  geom_point()+ geom_path()+
+  #geom_point(data = flux, aes(y = CO2_2_ppm), color = "black")+
+  facet_grid(Moisture ~ Clay+Temperature)+
+  theme_kp()+
+  theme(legend.position = "none",
+        axis.text.x = element_text(size=10))+
+  NULL
+```
+
+---
+
+# DOC
+
+```{r doc_files}
+doc = read.csv(here("data/processed/doc.csv"))
+```
+
+
+```{r doc_scatter, fig.width=10, fig.height=4}
+doc %>%
+  mutate(Temp_C = factor(Temp_C, levels = c(4, 20))) %>% 
+  mutate(Time = factor(Time, levels = c("Initial", "Final"))) %>% 
+  ggplot(aes(x = Temp_C, y = doc_ppm, shape = interaction(Clay, Moisture), color = Moisture))+
+  geom_point(size=3, stroke=1, position = position_dodge(width = 0.6))+
+  scale_shape_manual(values = c(1,16,0,15))+
+  scale_color_manual(values = rev(soilpalettes::soil_palette("redox2",2)))+
+  
+  labs(x = "Temperature, C",
+       y = "WEOC, ppm",
+       shape = "",
+       color = "")+
+  facet_grid(.~Time)+
+  theme_kp()+
+  theme(legend.position = "right")+
+  NULL
+```
+
+
+---
+
+<details>
+  <summary>Session Info</summary>
+
+date run: `r Sys.Date()`
+
+```{r}
+sessionInfo()
+```
+
+</details>
