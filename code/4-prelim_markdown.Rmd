@@ -17,6 +17,7 @@ source(here("code/0-packages.R"))
 theme_set(theme_bw())
 ```
 
+final cores F31, F32 removed
 
 ----
 
@@ -24,7 +25,8 @@ theme_set(theme_bw())
 
 ```{r flux_files}
 flux = read.csv(here("data/processed/flux.csv")) %>% 
-  mutate(datetime = ymd_hms(datetime))
+  mutate(datetime = ymd_hms(datetime),
+         Moisture = factor(Moisture, levels = c("50% WFPS", "100% WFPS")))
 ```
 
 ## CO2 concentrations
@@ -42,6 +44,52 @@ flux %>%
         axis.text.x = element_text(size=10))+
   NULL
 ```
+
+## CO2 fluxes
+
+**by core**
+
+```{r flux_cores}
+flux %>% 
+  ggplot(aes(x = incub_days, y = CO2C_ug_g_hr, color = as.character(core)))+
+  geom_point()+geom_path()+
+  facet_grid(Moisture ~ Clay+Temperature)+
+  theme(legend.position = "none")+
+  NULL
+```
+
+**means**
+
+```{r flux_means, fig.width=6, fig.height=6}
+
+labels = tribble(
+  ~Temperature, ~Moisture, ~Clay,
+  4, "50% WFPS", "non-amended"
+)
+
+flux %>% 
+  group_by(Temperature, Clay, Moisture, time, incub_days) %>% 
+  summarize(CO2C_ug_g_hr = mean(CO2C_ug_g_hr)) %>% 
+  arrange(incub_days) %>% 
+  ggplot(aes(x = incub_days, y = CO2C_ug_g_hr, color = Clay))+
+  geom_path()+
+#  geom_smooth()+
+  geom_point(data = flux, size=1.5, alpha = 0.3)+
+  scale_color_manual(values = soilpalettes::soil_palette("eutrostox",2))+
+  geom_text(data = labels, aes(x = 3, y = 0.12), label = "time zero\n (initial)", color = "black", size=3)+
+  geom_curve(data = labels, aes(x = 0.3, xend = 1.8, y = 0.11, yend = 0.12), curvature = -0.3, color = "black")+
+  labs(y = "CO2-C, ug/g/hr",
+       x = "days of incubation")+
+  facet_grid(Moisture ~ Temperature)+
+  theme_kp()+
+  NULL
+```
+
+
+
+
+
+
 
 ---
 
@@ -71,18 +119,6 @@ doc %>%
   NULL
 ```
 
-## stats
-
-```{r doc_stats, echo=TRUE}
-aov_doc_initial = aov(doc_ppm ~ Temp_C * Moisture * Clay, 
-                      data = doc %>% filter(Time=="Initial"))
-summary(aov_doc_initial)
-
-aov_doc_final = aov(doc_ppm ~ Temp_C * Moisture * Clay, 
-                    data = doc %>% filter(Time=="Final"))
-summary(aov_doc_final)
-```
-
 ## summary table
 
 ```{r doc_table}
@@ -97,6 +133,22 @@ doc %>%
   spread(Clay, mean) %>% 
   knitr::kable()
 ```
+
+<details>
+  <summary>stats</summary>
+
+```{r doc_stats, echo=TRUE}
+aov_doc_initial = aov(doc_ppm ~ Temp_C * Moisture * Clay, 
+                      data = doc %>% filter(Time=="Initial"))
+summary(aov_doc_initial)
+
+aov_doc_final = aov(doc_ppm ~ Temp_C * Moisture * Clay, 
+                    data = doc %>% filter(Time=="Final"))
+summary(aov_doc_final)
+```
+
+</details>
+
 
 ---
 
