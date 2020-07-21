@@ -110,3 +110,36 @@ flux2 =
 # output ------------------------------------------------------------------
 
 write.csv(flux2, "data/processed/flux.csv", row.names = F)
+
+
+
+
+# cumulative  -------------------------------------------------------------
+
+cumulative_evolution <- function(time, flux, interpolate = TRUE) {
+  
+
+  if(interpolate) {
+    flux = approx(time, flux, xout = time, rule = 2)[['y']]
+  }
+  
+  delta_time <- time[-1] - head(time, -1)
+  
+  intermediate_fluxes <- rep(NA_real_, length(delta_time))
+  ivals <- head(seq_along(flux), -1)
+  for(i in ivals) {
+    intermediate_fluxes[i] <- mean(c(flux[i], flux[i+1]))
+  }
+  evolved <- intermediate_fluxes * delta_time
+  c(0, cumsum(evolved))  # cumulative
+}
+
+flux2 %>% 
+  select(-time) %>% 
+  mutate(time=as.numeric(datetime),
+         flux=CO2C_ug_g_hr) %>% 
+  group_by(core) %>% 
+  cumulative_evolution(time, flux)
+
+cumulative_evolution(as.numeric(flux2$datetime), flux2$CO2C_ug_g_hr)
+
