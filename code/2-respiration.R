@@ -119,7 +119,7 @@ flux2 =
   group_by(core) %>% 
   arrange(datetime) %>% 
   mutate(CO2C_ug_cum = cumsum(CO2C_ug_corr)) %>% 
-  select(Temperature, Clay, Moisture, core, date, incub_days, 
+  select(Temperature, Clay, Moisture, core, date, time, incub_days, 
          CO2_1_ppm, CO2C_ug_g_hr, CO2C_ug, CO2C_ug_corr, CO2C_ug_cum)
 
 # output ------------------------------------------------------------------
