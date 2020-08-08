@@ -8,6 +8,11 @@ source("code/0-packages.R")
 # load files --------------------------------------------------------------
 
 flux_data = read.csv("data/respiration.csv")
+flux_conc_ambient = read.csv("data/Blanks_Amb_PPM.csv") %>% 
+  filter(temperature=="amb") %>% 
+  rename(amb_ppm = `CO2.ppm`) %>% 
+  mutate(date = mdy(date)) %>% 
+  select(date, amb_ppm)
 
 ## clean the data
 flux_clean = 
@@ -18,7 +23,11 @@ flux_clean =
   rename(hour = `time.hour.`,
          core = `Sample..`) %>% 
   mutate(datetime = mdy_hm(paste(date, hour)),
-         date = mdy(date))
+         date = mdy(date)) %>% 
+  ## we need to correct the CO2_ppm with ambient_ppm
+  left_join(flux_conc_ambient, by = "date") %>% 
+  ungroup() %>% 
+  mutate(CO21_ppm_corr = CO2_1_ppm - min(CO2_1_ppm))
 
 # calculate flux ----------------------------------------------------------
 ## fixed parameters for calculation ----
@@ -88,6 +97,7 @@ flux =
     #PV=nRT
     mmol_air = ((1*headspace)/(R*(Temperature+273)))*1000,
     CO2C_ug = mmol_air*CO2_1_ppm*12.011/1000,
+    CO2C_ug_corr = mmol_air*CO21_ppm_corr*12.011/1000,
     CO2C_mg = CO2C_ug/1000,
     CO2C_ug_g_hr = (CO2C_ug/soil_wt) * 1/flux_hr) %>% 
   filter(remove_3132)  %>% 
@@ -104,8 +114,13 @@ flux2 =
          Clay = if_else(Clay=="clay","illite-amended", "non-amended")
          ) %>% 
   select(Temperature, Clay, Moisture, core, datetime, date, time, incub_days,
-         CO2_1_ppm, CO2_2_ppm, CO2C_ug_g_hr)
-
+         CO2_1_ppm, CO2_2_ppm, CO2C_ug_g_hr, CO2C_ug, CO2C_ug_corr) %>% 
+  ## calculate cumulative evolution
+  group_by(core) %>% 
+  arrange(datetime) %>% 
+  mutate(CO2C_ug_cum = cumsum(CO2C_ug_corr)) %>% 
+  select(Temperature, Clay, Moisture, core, date, incub_days, 
+         CO2_1_ppm, CO2C_ug_g_hr, CO2C_ug, CO2C_ug_corr, CO2C_ug_cum)
 
 # output ------------------------------------------------------------------
 
@@ -114,32 +129,51 @@ write.csv(flux2, "data/processed/flux.csv", row.names = F)
 
 
 
-# cumulative  -------------------------------------------------------------
-
-cumulative_evolution <- function(time, flux, interpolate = TRUE) {
-  
-
-  if(interpolate) {
-    flux = approx(time, flux, xout = time, rule = 2)[['y']]
-  }
-  
-  delta_time <- time[-1] - head(time, -1)
-  
-  intermediate_fluxes <- rep(NA_real_, length(delta_time))
-  ivals <- head(seq_along(flux), -1)
-  for(i in ivals) {
-    intermediate_fluxes[i] <- mean(c(flux[i], flux[i+1]))
-  }
-  evolved <- intermediate_fluxes * delta_time
-  c(0, cumsum(evolved))  # cumulative
-}
-
-flux2 %>% 
-  select(-time) %>% 
-  mutate(time=as.numeric(datetime),
-         flux=CO2C_ug_g_hr) %>% 
-  group_by(core) %>% 
-  cumulative_evolution(time, flux)
-
-cumulative_evolution(as.numeric(flux2$datetime), flux2$CO2C_ug_g_hr)
+    ##  # cumulative  -------------------------------------------------------------
+    ##  
+    ##  flux_cum = 
+    ##    flux2 %>% 
+    ##    group_by(core) %>% 
+    ##    arrange(datetime) %>% 
+    ##    mutate(CO2C_ug_cum = cumsum(CO2C_ug_corr))
+    ##  
+    ##  flux_cum %>% 
+    ##    ggplot(aes(x = incub_days, y = cumulative, color = as.character(core)))+
+    ##    geom_point()+geom_path()+
+    ##    facet_grid(Moisture ~ Clay+Temperature)
+    ##    
+    ##  
+    ##  
+    ##  
+    ##  
+    ##  
+    ##  
+    ##  
+    ##  
+    ##  cumulative_evolution <- function(time, flux, interpolate = TRUE) {
+    ##    
+    ##  
+    ##    if(interpolate) {
+    ##      flux = approx(time, flux, xout = time, rule = 2)[['y']]
+    ##    }
+    ##    
+    ##    delta_time <- time[-1] - head(time, -1)
+    ##    
+    ##    intermediate_fluxes <- rep(NA_real_, length(delta_time))
+    ##    ivals <- head(seq_along(flux), -1)
+    ##    for(i in ivals) {
+    ##      intermediate_fluxes[i] <- mean(c(flux[i], flux[i+1]))
+    ##    }
+    ##    evolved <- intermediate_fluxes * delta_time
+    ##    c(0, cumsum(evolved))  # cumulative
+    ##  }
+    ##  
+    ##  flux2 %>% 
+    ##    select(-time) %>% 
+    ##    mutate(time=as.numeric(datetime),
+    ##           flux=CO2C_ug_g_hr) %>% 
+    ##    group_by(core) %>% 
+    ##    cumulative_evolution(time, flux)
+    ##  
+    ##  cumulative_evolution(as.numeric(flux2$datetime), flux2$CO2C_ug_g_hr)
 
