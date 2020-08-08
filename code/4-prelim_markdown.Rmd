@@ -21,21 +21,38 @@ final cores F31, F32 removed
 
 ----
 
+### Hypotheses:
+(1) increased **temperature** would destabilize MAOM, increasing the bioavailable DOM and C mineralization (also increase microbial activity); 
+(2) increased **moisture content** would improve hydrologic connectivity, increasing CO2 flux; and 
+(3) higher temperature would have a greater destabilization effect on SOM than higher moisture, because ---. 
+(4) Since sorption to mineral surfaces is an important/dominant mechanism of SOM stabilization, we also hypothesized that  destabilization of SOM due to increased temperature and/or moisture would be less in **clay-rich soils**. 
+
+----
+
+----
+
 # RESPIRATION
+
+- cumulative CO2 evolution was influenced by temperature and clay amendments, but not by moisture content
+- CO2 evolution was greater at 20 C than at 4 C
+- CO2 evolution was reduced in clay-amended soils. this effect was seen only at 20 C
+
+----
 
 ```{r flux_files}
 flux = read.csv(here("data/processed/flux.csv")) %>% 
-  mutate(datetime = ymd_hms(datetime),
-         Moisture = factor(Moisture, levels = c("50% WFPS", "100% WFPS")))
+  mutate(date = ymd(date),
+         Moisture = factor(Moisture, levels = c("50% WFPS", "100% WFPS")),
+         CO2C_ug_g_cum = CO2C_ug_cum/42)
 ```
 
-## CO2 concentrations
+## core-wise graphs
 
-**by core**
+**CO2-C concentrations**
 
 ```{r resp_conc_graph, fig.width=10}
 flux %>% 
-  ggplot(aes(x = datetime, y = CO2_1_ppm, color = as.character(core)))+
+  ggplot(aes(x = date, y = CO2_1_ppm, color = as.character(core)))+
   geom_point()+ geom_path()+
   #geom_point(data = flux, aes(y = CO2_2_ppm), color = "black")+
   facet_grid(Moisture ~ Clay+Temperature)+
@@ -45,9 +62,7 @@ flux %>%
   NULL
 ```
 
-## CO2 fluxes
-
-**by core**
+**CO2-C fluxes**
 
 ```{r flux_cores}
 flux %>% 
@@ -58,7 +73,21 @@ flux %>%
   NULL
 ```
 
-**means**
+**cumulative CO2-C evolved**
+
+```{r flux_cum}
+flux %>% 
+  ggplot(aes(x = incub_days, y = CO2C_ug_cum, color = as.character(core)))+
+  geom_point()+geom_path()+
+  facet_grid(Moisture ~ Clay+Temperature)+
+  theme(legend.position = "none")+
+  NULL
+```
+
+note: some cores are missing time-points. missing values must be filled in with interpolation
+
+
+## mean/summary graphs
 
 ```{r flux_means, fig.width=6, fig.height=6}
 
@@ -78,7 +107,26 @@ flux %>%
   scale_color_manual(values = soilpalettes::soil_palette("eutrostox",2))+
   geom_text(data = labels, aes(x = 3, y = 0.12), label = "time zero\n (initial)", color = "black", size=3)+
   geom_curve(data = labels, aes(x = 0.3, xend = 1.8, y = 0.11, yend = 0.12), curvature = -0.3, color = "black")+
-  labs(y = "CO2-C, ug/g/hr",
+  labs(title = "mean CO2-C flux",
+       y = "CO2-C, ug/g/hr",
+       x = "days of incubation")+
+  facet_grid(Moisture ~ Temperature)+
+  theme_kp()+
+  NULL
+```
+
+```{r flux_cum_means, fig.width=6, fig.height=6}
+flux %>% 
+  group_by(Temperature, Clay, Moisture, time, incub_days) %>% 
+  summarize(CO2C_ug_g_cum = mean(CO2C_ug_g_cum)) %>% 
+  arrange(incub_days) %>% 
+  ggplot(aes(x = incub_days, y = CO2C_ug_g_cum, color = Clay))+
+  geom_path()+
+#  geom_smooth()+
+  geom_point(data = flux, size=1.5, alpha = 0.3)+
+  scale_color_manual(values = soilpalettes::soil_palette("eutrostox",2))+
+  labs(title = "cumulative CO2-C evolved",
+       y = "CO2-C, ug/g",
        x = "days of incubation")+
   facet_grid(Moisture ~ Temperature)+
   theme_kp()+
@@ -88,12 +136,36 @@ flux %>%
 
 
 
+## stats
 
+```{r flux_aov, echo=TRUE, fig.width=4}
+(cum_flux_aov = car::Anova(lm(CO2C_ug_cum ~ (Temperature + Clay + Moisture)^2, 
+                             data = flux), 
+                          type = "III")
+)
+```
 
+**cumulative CO2-C evolved (ug/g)**
+```{r flux_cum_table}
+flux %>% 
+  group_by(core, Temperature, Clay, Moisture) %>% 
+  summarize(CO2C_ug_g_cum = max(CO2C_ug_g_cum)) %>% 
+  group_by(Temperature, Clay, Moisture) %>% 
+  summarise(CO2C_ug_g_cum_mean = mean(CO2C_ug_g_cum),
+            se_CO2C = sd(CO2C_ug_g_cum, na.rm = TRUE)/sqrt(n()),
+            CO2C_ug_g_cum = paste(round(CO2C_ug_g_cum_mean,2), "\u00b1", round(se_CO2C,2))) %>% 
+  select(Temperature, Clay, Moisture, CO2C_ug_g_cum) %>% 
+  spread(Clay, CO2C_ug_g_cum) %>% 
+  knitr::kable()
+```
 
 ---
 
 # DOC
+
+- DOC for initial soils was influenced by moisture content and clay amendment, but not by temperature (the soils were air-dried, which may have caused destabilization of protected C -- and that may have masked any temperature effects)
+- after the 7-day incubation, DOC was influenced by moisture, but not by clay amendment or temperature
+
 
 ```{r doc_files}
 doc = read.csv(here("data/processed/doc.csv"))
@@ -138,11 +210,11 @@ doc %>%
   <summary>stats</summary>
 
 ```{r doc_stats, echo=TRUE}
-aov_doc_initial = aov(doc_ppm ~ Temp_C * Moisture * Clay, 
-                      data = doc %>% filter(Time=="Initial"))
+aov_doc_initial = aov(doc_ppm ~ (Temp_C + Moisture + Clay)^2, 
+                    data = doc %>% filter(Time=="Initial"))
 summary(aov_doc_initial)
 
-aov_doc_final = aov(doc_ppm ~ Temp_C * Moisture * Clay, 
+aov_doc_final = aov(doc_ppm ~ (Temp_C + Moisture + Clay)^2, 
                     data = doc %>% filter(Time=="Final"))
 summary(aov_doc_final)
 ```
