@@ -92,10 +92,15 @@ flux_times =
 flux = 
   flux_times %>% 
   filter(!core==0) %>% 
-  # remove 32 and 33 for all except t0
-  mutate(remove_3132 = (core==31&time=="t0")|(core==32&time=="t0")|(core<31),
-    #PV=nRT
+  mutate(
+    # remove 32 and 33 for all except t0
+    # create a TRUE/FALSE column where TRUE = rows we want to keep, and FALSE = rows to exclude
+    remove_3132 = (core==31&time=="t0")|(core==32&time=="t0")|(core<31),
+    # calculate the moles of air in the headspace
+    # PV=nRT
     mmol_air = ((1*headspace)/(R*(Temperature+273)))*1000,
+    # calculate the absolute mass of CO2C in the headspace
+    # from CO2 and moles of air
     CO2C_ug = mmol_air*CO2_1_ppm*12.011/1000,
     CO2C_ug_corr = mmol_air*CO21_ppm_corr*12.011/1000,
     CO2C_mg = CO2C_ug/1000,
