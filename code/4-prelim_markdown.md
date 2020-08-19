@@ -67,14 +67,14 @@ in with interpolation
 #> 
 #> Response: CO2C_ug_cum
 #>                       Sum Sq  Df F value    Pr(>F)    
-#> (Intercept)            31558   1  2.4430  0.119278    
-#> Temperature           261553   1 20.2479 1.031e-05 ***
-#> Clay                    9972   1  0.7720  0.380428    
-#> Moisture               28972   1  2.2429  0.135458    
-#> Temperature:Clay      101285   1  7.8409  0.005495 ** 
-#> Temperature:Moisture    7224   1  0.5592  0.455264    
-#> Clay:Moisture          23797   1  1.8422  0.175882    
-#> Residuals            3319798 257                      
+#> (Intercept)            29986   1  2.1710   0.14182    
+#> Temperature           349304   1 25.2905 9.098e-07 ***
+#> Clay                    8842   1  0.6402   0.42435    
+#> Moisture               29669   1  2.1481   0.14393    
+#> Temperature:Clay       86190   1  6.2404   0.01309 *  
+#> Temperature:Moisture   13637   1  0.9873   0.32130    
+#> Clay:Moisture          25638   1  1.8563   0.17421    
+#> Residuals            3660090 265                      
 #> ---
 #> Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ```
@@ -83,10 +83,10 @@ in with interpolation
 
 | Temperature | Moisture  | illite-amended | non-amended  |
 | ----------: | :-------- | :------------- | :----------- |
-|           4 | 50% WFPS  | 4.21 ± 0.14    | 3.5 ± 0.2    |
-|           4 | 100% WFPS | 1.06 ± 0.21    | 2.82 ± 0.3   |
-|          20 | 50% WFPS  | 9.84 ± 1.16    | 12.44 ± 0.47 |
-|          20 | 100% WFPS | 7.49 ± 0.52    | 6.56 ± 3.73  |
+|           4 | 50% WFPS  | 4.35 ± 0.1     | 3.63 ± 0.1   |
+|           4 | 100% WFPS | 1.06 ± 0.21    | 2.9 ± 0.26   |
+|          20 | 50% WFPS  | 10.84 ± 1.05   | 12.92 ± 0.12 |
+|          20 | 100% WFPS | 7.92 ± 0.16    | 6.56 ± 3.73  |
 
 -----
 
@@ -156,7 +156,7 @@ summary(aov_doc_final)
 
 <summary>Session Info</summary>
 
-date run: 2020-08-07
+date run: 2020-08-18
 
     #> R version 4.0.2 (2020-06-22)
     #> Platform: x86_64-apple-darwin17.0 (64-bit)
@@ -182,13 +182,13 @@ date run: 2020-08-07
     #>  [5] R6_2.4.1           cellranger_1.1.0   backports_1.1.8    reprex_0.3.0      
     #>  [9] evaluate_0.14      httr_1.4.2         highr_0.8          pillar_1.4.6      
     #> [13] soilpalettes_0.1.0 rlang_0.4.7        curl_4.3           readxl_1.3.1      
-    #> [17] rstudioapi_0.11    data.table_1.13.0  car_3.0-8          blob_1.2.1        
+    #> [17] rstudioapi_0.11    data.table_1.13.0  car_3.0-9          blob_1.2.1        
     #> [21] rmarkdown_2.3      labeling_0.3       foreign_0.8-80     munsell_0.5.0     
     #> [25] broom_0.7.0        compiler_4.0.2     modelr_0.1.8       xfun_0.16         
     #> [29] pkgconfig_2.0.3    htmltools_0.5.0    tidyselect_1.1.0   rio_0.5.16        
     #> [33] fansi_0.4.1        crayon_1.3.4       dbplyr_1.4.4       withr_2.2.0       
     #> [37] grid_4.0.2         jsonlite_1.7.0     gtable_0.3.0       lifecycle_0.2.0   
-    #> [41] DBI_1.1.0          magrittr_1.5       scales_1.1.1       zip_2.0.4         
+    #> [41] DBI_1.1.0          magrittr_1.5       scales_1.1.1       zip_2.1.0         
     #> [45] cli_2.0.2          stringi_1.4.6      carData_3.0-4      farver_2.0.3      
     #> [49] fs_1.5.0           xml2_1.3.2         ellipsis_0.3.1     generics_0.0.2    
     #> [53] vctrs_0.3.2        openxlsx_4.1.5     tools_4.0.2        glue_1.4.1        

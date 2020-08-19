@@ -86,7 +86,11 @@ flux_times =
   select(-Diff, -flushedtime) %>% 
   # now calculate elapsed time for the incubation
   ungroup() %>% 
-  mutate(incub_days = as.double(difftime(date, min(date), units = "days")))
+  mutate(incub_days = as.double(difftime(date, min(date), units = "days"))) %>% 
+         ## but now, we have two `0` days per sample
+         ## recode them to `0` and `0.5`
+  group_by(core, incub_days) %>% 
+  dplyr::mutate(incub_days = if_else(incub_days==0 & datetime == max(datetime), 0.5, incub_days))
 
 ## calculate fluxes ----
 flux = 
@@ -103,29 +107,62 @@ flux =
     # from CO2 and moles of air
     CO2C_ug = mmol_air*CO2_1_ppm*12.011/1000,
     CO2C_ug_corr = mmol_air*CO21_ppm_corr*12.011/1000,
-    CO2C_mg = CO2C_ug/1000,
-    CO2C_ug_g_hr = (CO2C_ug/soil_wt) * 1/flux_hr) %>% 
+    #CO2C_mg = CO2C_ug/1000
+    ) %>% 
   filter(remove_3132)  %>% 
   select(-remove_3132)
   
 
+# check for missing values ----------------------------------------------------------
+# CO2 data are missing for some time points
+# this will f- up our cumulative flux calculations
+# so we (a) determine which time points have missing values, and (b) interpolate to fill the gaps
+
+flux_missing = 
+  flux %>% 
+  # select only the required columns
+  dplyr::select(Temperature, Clay, Moisture, core, incub_days, CO2C_ug_corr) %>% 
+  # we want to determine which time points are missing, so spread and then melt
+  spread(incub_days, CO2C_ug_corr) %>% 
+  pivot_longer(-c(Temperature, Clay, Moisture, core), names_to = "incub_days", values_to = "CO2C_ug_corr") %>% 
+  # interpolate to fill in missing values, for each group
+  group_by(core) %>% 
+  mutate(CO2C_ug_interp = zoo::na.approx(CO2C_ug_corr, incub_days),
+         incub_days = as.double(incub_days)) %>% 
+  dplyr::select(-CO2C_ug_corr) %>% 
+  # this includes cores 31-32, because we have timezero values for 31-32.
+  # remove those
+  filter(core<31)
+
+# now, merge this file into the `flux` file
+flux_missing2 = 
+  flux %>% 
+  full_join(flux_missing, by = c("Temperature", "Clay", "Moisture", "core", "incub_days")) %>% 
+  # combine the `CO2C_ug_interp` into `CO2C_ug_corr`
+  ungroup() %>% 
+  mutate(CO2C_ug_corr = if_else(is.na(CO2C_ug_corr), CO2C_ug_interp, CO2C_ug_corr)) %>% 
+  dplyr::select(-CO2C_ug_interp)
+
 # recode variables --------------------------------------------------------
 
 flux2 = 
-  flux %>% 
+  flux_missing2 %>% 
   mutate(Moisture = recode(Moisture,
                            "f.c." = "50% WFPS",
                            "sat." = "100% WFPS"),
          Clay = if_else(Clay=="clay","illite-amended", "non-amended")
          ) %>% 
+  mutate(CO2C_ug_g_hr = (CO2C_ug_corr/soil_wt) * 1/flux_hr) %>% 
   select(Temperature, Clay, Moisture, core, datetime, date, time, incub_days,
          CO2_1_ppm, CO2_2_ppm, CO2C_ug_g_hr, CO2C_ug, CO2C_ug_corr) %>% 
   ## calculate cumulative evolution
   group_by(core) %>% 
-  arrange(datetime) %>% 
+  arrange(incub_days) %>% 
   mutate(CO2C_ug_cum = cumsum(CO2C_ug_corr)) %>% 
   select(Temperature, Clay, Moisture, core, date, time, incub_days, 
          CO2_1_ppm, CO2C_ug_g_hr, CO2C_ug, CO2C_ug_corr, CO2C_ug_cum)
+
+
 
 # output ------------------------------------------------------------------
 

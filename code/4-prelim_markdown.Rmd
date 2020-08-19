@@ -97,8 +97,8 @@ labels = tribble(
 )
 
 flux %>% 
-  group_by(Temperature, Clay, Moisture, time, incub_days) %>% 
-  summarize(CO2C_ug_g_hr = mean(CO2C_ug_g_hr)) %>% 
+  group_by(Temperature, Clay, Moisture, incub_days) %>% 
+  summarize(CO2C_ug_g_hr = mean(CO2C_ug_g_hr, na.rm = T)) %>% 
   arrange(incub_days) %>% 
   ggplot(aes(x = incub_days, y = CO2C_ug_g_hr, color = Clay))+
   geom_path()+
@@ -117,7 +117,7 @@ flux %>%
 
 ```{r flux_cum_means, fig.width=6, fig.height=6}
 flux %>% 
-  group_by(Temperature, Clay, Moisture, time, incub_days) %>% 
+  group_by(Temperature, Clay, Moisture, incub_days) %>% 
   summarize(CO2C_ug_g_cum = mean(CO2C_ug_g_cum)) %>% 
   arrange(incub_days) %>% 
   ggplot(aes(x = incub_days, y = CO2C_ug_g_cum, color = Clay))+
