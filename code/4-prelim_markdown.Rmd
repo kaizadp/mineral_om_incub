@@ -138,10 +138,19 @@ flux %>%
 
 ## stats
 
+```{r}
+cum_flux = 
+  flux %>% 
+  group_by(core) %>% 
+  filter(CO2C_ug_cum == max(CO2C_ug_cum))
+```
+
+
 ```{r flux_aov, echo=TRUE, fig.width=4}
-(cum_flux_aov = car::Anova(lm(CO2C_ug_cum ~ (Temperature + Clay + Moisture)^2, 
-                             data = flux), 
-                          type = "III")
+(cum_flux_aov = car::Anova(lm(
+  log10(CO2C_ug_cum) ~ (Temperature + Clay + Moisture)^2,
+  data = cum_flux), 
+  type = "III")
 )
 ```
 
